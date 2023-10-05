@@ -4,7 +4,6 @@ import com.example.intuit.businessprofileservice.entity.Address;
 import com.example.intuit.businessprofileservice.entity.response.CreateUpdateProfileResponse;
 import com.example.intuit.businessprofileservice.exception.ProfileNotFoundException;
 import com.example.intuit.businessprofileservice.model.BusinessProfile;
-import com.example.intuit.businessprofileservice.model.Subscription;
 import com.example.intuit.businessprofileservice.model.Validation;
 import com.example.intuit.businessprofileservice.repository.BusinessProfileRepository;
 import com.example.intuit.businessprofileservice.util.BusinessProfileUtil;
@@ -62,7 +61,7 @@ class BusinessProfileServiceTest {
         currentValidation.setRequestID("requestId");
         currentValidation.setTimestamp(0L);
         currentValidation.setValidationType(Constants.ValidationType.CREATE);
-        when(mockValidationService.createInProgressValidation(businessProfile, Constants.ValidationType.CREATE)).thenReturn(currentValidation);
+        when(mockValidationService.buildInProgressValidation(businessProfile, Constants.ValidationType.CREATE)).thenReturn(currentValidation);
 
         // Run the test
         final CreateUpdateProfileResponse result = businessProfileServiceUnderTest.createBusinessProfile(businessProfile);
@@ -236,7 +235,7 @@ class BusinessProfileServiceTest {
         currentValidation.setRequestID("requestId");
         currentValidation.setTimestamp(0L);
         currentValidation.setValidationType(Constants.ValidationType.UPDATE);
-        when(mockValidationService.createInProgressValidation(businessProfile, Constants.ValidationType.UPDATE)).thenReturn(currentValidation);
+        when(mockValidationService.buildInProgressValidation(businessProfile, Constants.ValidationType.UPDATE)).thenReturn(currentValidation);
 
         // Run the test
         final CreateUpdateProfileResponse result = businessProfileServiceUnderTest.updateBusinessProfile(businessProfile);

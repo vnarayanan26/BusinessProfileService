@@ -116,7 +116,7 @@ class ValidationServiceTest {
         when(mockValidationRepository.save(any(Validation.class))).thenReturn(validation1);
 
         // Run the test
-        final Validation result = validationServiceUnderTest.createValidationStatus(validation);
+        final Validation result = validationServiceUnderTest.createValidation(validation);
 
         // Verify the results
     }
@@ -153,7 +153,7 @@ class ValidationServiceTest {
 
         // Run the test
         final Optional<Validation> result =
-                validationServiceUnderTest.updateValidationStatus(
+                validationServiceUnderTest.updateValidation(
                         "e5e7656b-4e4a-4ceb-a9b3-fbd0b8c89f2f", newStatus);
 
         // Verify the results
@@ -174,7 +174,7 @@ class ValidationServiceTest {
 
         // Run the test
         final Optional<Validation> result =
-                validationServiceUnderTest.updateValidationStatus(
+                validationServiceUnderTest.updateValidation(
                         "e5e7656b-4e4a-4ceb-a9b3-fbd0b8c89f2f", newStatus);
 
         // Verify the results
@@ -185,7 +185,7 @@ class ValidationServiceTest {
     void testDeleteValidationStatus() {
         // Setup
         // Run the test
-        validationServiceUnderTest.deleteValidationStatus("id");
+        validationServiceUnderTest.deleteValidation("id");
 
         // Verify the results
         verify(mockValidationRepository).deleteById("id");
@@ -322,7 +322,7 @@ class ValidationServiceTest {
 
         // Run the test
         final Validation result =
-                validationServiceUnderTest.createInProgressValidation(
+                validationServiceUnderTest.buildInProgressValidation(
                         businessProfile, Constants.ValidationType.CREATE);
 
         // Verify the results

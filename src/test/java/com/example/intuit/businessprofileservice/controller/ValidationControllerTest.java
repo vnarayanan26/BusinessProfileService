@@ -44,7 +44,7 @@ class ValidationControllerTest {
         validation.setRequestID("requestID");
         validation.setTimestamp(0L);
         validation.setValidationType(Constants.ValidationType.CREATE);
-        when(mockValidationService.createValidationStatus(any(Validation.class)))
+        when(mockValidationService.createValidation(any(Validation.class)))
                 .thenReturn(validation);
 
         // Run the test

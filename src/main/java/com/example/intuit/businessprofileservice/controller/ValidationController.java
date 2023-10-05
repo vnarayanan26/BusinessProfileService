@@ -20,7 +20,7 @@ public class ValidationController {
 
     @PostMapping("/")
     public ResponseEntity<Validation> createValidationStatus(@RequestBody Validation validation) {
-        Validation createdStatus = validationService.createValidationStatus(validation);
+        Validation createdStatus = validationService.createValidation(validation);
         return ResponseEntity.ok(createdStatus);
     }
 

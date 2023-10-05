@@ -13,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.example.intuit.businessprofileservice.repository.BusinessProfileRepository;
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +22,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableDynamoDBRepositories( basePackages = "com.example.intuit.businessprofileservice.repository",dynamoDBMapperConfigRef = "dynamoDBMapperConfig", dynamoDBMapperRef = "dynamoDBMapper")
 public class DynamoDBConfig {
 
-    @Value("${amazon.aws.accesskey}")
-    private String amazonAWSAccessKey;
-
-    @Value("${amazon.aws.secretkey}")
-    private String amazonAWSSecretKey;
-
-    @Value("${amazon.dynamodb.endpoint}")
-    private String amazonDynamoDBEndpoint;
+    @Autowired
+    Properties properties;
 
     public AWSCredentialsProvider amazonAWSCredentialsProvider() {
         return new AWSStaticCredentialsProvider(amazonAWSCredentials());
@@ -36,7 +31,8 @@ public class DynamoDBConfig {
 
     @Bean
     public AWSCredentials amazonAWSCredentials() {
-        return new BasicAWSCredentials(amazonAWSAccessKey, amazonAWSSecretKey);
+        return new BasicAWSCredentials(
+                properties.getAmazonAWSAccessKey(), properties.getAmazonAWSSecretKey());
     }
 
     @Bean
@@ -51,6 +47,11 @@ public class DynamoDBConfig {
 
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonDynamoDBEndpoint, "")).withCredentials(amazonAWSCredentialsProvider()).build();
+        return AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(
+                        new AwsClientBuilder.EndpointConfiguration(
+                                properties.getAmazonDynamoDBEndpoint(), ""))
+                .withCredentials(amazonAWSCredentialsProvider())
+                .build();
     }
 }

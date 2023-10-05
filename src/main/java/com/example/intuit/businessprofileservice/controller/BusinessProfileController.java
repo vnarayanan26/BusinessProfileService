@@ -7,6 +7,7 @@ import com.example.intuit.businessprofileservice.model.BusinessProfile;
 import com.example.intuit.businessprofileservice.service.BusinessProfileService;
 import com.example.intuit.businessprofileservice.util.Constants;
 import com.example.intuit.businessprofileservice.validator.BusinessProfileValidator;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class BusinessProfileController {
     }
 
     @GetMapping("/{customerId}")
+    @CircuitBreaker(name = "businessProfileFallback", fallbackMethod = "fallbackForGettingBusinessProfile")
     public ResponseEntity<BusinessProfile> getBusinessProfileById(@PathVariable("customerId") String customerId) {
         Optional<BusinessProfile> profile = businessProfileService.getBusinessProfileById(customerId);
 
@@ -45,6 +47,7 @@ public class BusinessProfileController {
     }
 
     @PutMapping("/{customerId}")
+    @CircuitBreaker(name = "businessProfileFallback", fallbackMethod = "fallbackForUpdatingBusinessProfile")
     public ResponseEntity<CreateUpdateProfileResponse> updateBusinessProfile(
             @PathVariable("customerId") String customerId,
             @RequestBody @Valid BusinessProfile businessProfile) throws ProfileNotFoundException {

@@ -6,12 +6,14 @@ import com.example.intuit.businessprofileservice.util.AddressConverter;
 import com.example.intuit.businessprofileservice.util.TaxIdentifierConverter;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.io.Serializable;
 import java.util.Map;
 
 //@JsonPropertyOrder({ "customerID", "companyName", "legalName", "email", "website" })
 @DynamoDBTable(tableName = "BusinessProfile")
-public class BusinessProfile {
+public class BusinessProfile implements Serializable {
 
+    private static final long serialVersionUID = 7156526077883281623L;
     private String customerID;
 
     private String companyName;
@@ -42,7 +44,7 @@ public class BusinessProfile {
         this.customerID = customerID;
     }
 
-    @DynamoDBAttribute(attributeName = "companyName")
+    @DynamoDBAttribute(attributeName = "CompanyName")
     public String getCompanyName() {
         return companyName;
     }
@@ -51,7 +53,7 @@ public class BusinessProfile {
         this.companyName = companyName;
     }
 
-    @DynamoDBAttribute(attributeName = "legalName")
+    @DynamoDBAttribute(attributeName = "LegalName")
     public String getLegalName() {
         return legalName;
     }

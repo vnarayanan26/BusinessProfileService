@@ -63,11 +63,11 @@ public class AsyncValidatorService {
                                     log.error("No subscription exception block reached");
                                     BusinessProfileUtil.updateBusinessProfileAttributes(
                                             existingProfile, businessProfile);
-                                    validationService.updateAcceptedValidation(currentValidation);
                                     businessProfileRepository.save(existingProfile);
                                 }
                                 return List.of();
                             }
+                            validationService.updateAcceptedValidation(currentValidation);
                             return subscriptions;
                         })
                 .thenApplyAsync(

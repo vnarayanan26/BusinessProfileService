@@ -33,6 +33,11 @@ public class UniversalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(profileNotFoundException.getMessage());
     }
 
+    @ExceptionHandler(value = ProfileAlreadyExistsException.class)
+    public ResponseEntity<String> profileAlreadyExistsException(ProfileAlreadyExistsException profileAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(profileAlreadyExistsException.getMessage());
+    }
+
     @ExceptionHandler(value = SubscriptionNotFoundException.class)
     public ResponseEntity<String> subscriptionNotFoundException(SubscriptionNotFoundException subscriptionNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subscriptionNotFoundException.getMessage());
@@ -46,5 +51,10 @@ public class UniversalExceptionHandler {
     @ExceptionHandler(value = NoSubscriptionsFoundException.class)
     public void noSubscriptionsFoundException(NoSubscriptionsFoundException noSubscriptionsFoundException) {
         log.info(noSubscriptionsFoundException.getMessage());
+    }
+
+    @ExceptionHandler(value = RevisionValidationInProgressException.class)
+    public ResponseEntity<String> revisionValidationInProgressException(RevisionValidationInProgressException revisionValidationInProgressException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(revisionValidationInProgressException.getMessage());
     }
 }

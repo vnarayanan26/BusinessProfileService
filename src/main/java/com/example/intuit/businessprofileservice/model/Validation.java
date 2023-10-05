@@ -1,6 +1,8 @@
 package com.example.intuit.businessprofileservice.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.example.intuit.businessprofileservice.util.AddressConverter;
+import com.example.intuit.businessprofileservice.util.BusinessProfileConverter;
 import com.example.intuit.businessprofileservice.util.Constants;
 
 @DynamoDBTable(tableName = "ValidationStatus")
@@ -13,15 +15,29 @@ public class Validation {
     private Constants.ValidationStatus overallValidationStatus;
 
     private Constants.ValidationType validationType;
+
+    private BusinessProfile businessProfileRevision;
+
     private long timestamp;
 
     @DynamoDBAttribute(attributeName = "CustomerID")
+
     public String getCustomerID() {
         return customerID;
     }
 
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
+    }
+
+    @DynamoDBAttribute(attributeName = "businessProfileRevision")
+    @DynamoDBTypeConverted(converter = BusinessProfileConverter.class)
+    public BusinessProfile getBusinessProfileRevision() {
+        return businessProfileRevision;
+    }
+
+    public void setBusinessProfileRevision(BusinessProfile businessProfileRevision) {
+        this.businessProfileRevision = businessProfileRevision;
     }
 
     @DynamoDBAttribute(attributeName = "OverallValidationStatus")

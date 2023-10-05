@@ -112,7 +112,7 @@ class ValidationServiceTest1 {
         when(mockValidationRepository.save(any(Validation.class))).thenReturn(validation1);
 
         // Run the test
-        final Validation result = validationServiceUnderTest.createValidationStatus(validation);
+        final Validation result = validationServiceUnderTest.createValidation(validation);
 
         // Verify the results
     }
@@ -144,7 +144,7 @@ class ValidationServiceTest1 {
         when(mockValidationRepository.save(any(Validation.class))).thenReturn(validation2);
 
         // Run the test
-        final Optional<Validation> result = validationServiceUnderTest.updateValidationStatus("id",
+        final Optional<Validation> result = validationServiceUnderTest.updateValidation("id",
                 newStatus);
 
         // Verify the results
@@ -162,7 +162,7 @@ class ValidationServiceTest1 {
         when(mockValidationRepository.findById("id")).thenReturn(Optional.empty());
 
         // Run the test
-        final Optional<Validation> result = validationServiceUnderTest.updateValidationStatus("id",
+        final Optional<Validation> result = validationServiceUnderTest.updateValidation("id",
                 newStatus);
 
         // Verify the results
@@ -173,7 +173,7 @@ class ValidationServiceTest1 {
     void testDeleteValidationStatus() {
         // Setup
         // Run the test
-        validationServiceUnderTest.deleteValidationStatus("id");
+        validationServiceUnderTest.deleteValidation("id");
 
         // Verify the results
         verify(mockValidationRepository).deleteById("id");
